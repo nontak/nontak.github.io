@@ -10,13 +10,11 @@
   $(function() {
     console.log("init");
 
-    let str = $.ajax({
+    $.ajax({
       type: "GET",
       url: "contents/list.js",
-      dataType: "text"
+      dataType: "script"
     });
-
-    console.log("X:" + str);
   });
 </script>
 <body>
