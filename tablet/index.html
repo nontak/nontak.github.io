@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<meta charset="utf-8">
+<title>Tablet</title>
+</head>
+
+<script>
+  $(function() {
+    console.log("init");
+    $.ajax({
+      type: "GET",
+      url: "contnets/list.js",
+      dataType: "script"
+    });
+  });
+</script>
+<body>
+</body>
+
