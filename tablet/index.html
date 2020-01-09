@@ -9,11 +9,14 @@
 <script>
   $(function() {
     console.log("init");
-    $.ajax({
+
+    let str = $.ajax({
       type: "GET",
       url: "contnets/list.js",
-      dataType: "script"
+      dataType: "text"
     });
+
+    console.log("X:" + str);
   });
 </script>
 <body>
