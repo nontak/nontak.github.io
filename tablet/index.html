@@ -2,30 +2,85 @@
 <html lang="ja">
 <head>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
 <meta charset="utf-8">
 <title>Tablet</title>
 </head>
 
 <script>
   $(function() {
-    console.log("init");
-
+    init();
+    $(document).on("click", ".shard.set", open_answer);
+    $(document).on("click", ".shard.next", next_content);
   });
 
+  function init() {
+    close_answer();
+  };
+
+  function open_answer() {
+    $(".shard.answer").show();
+    $(".shard.next").show();
+  };
+
+  function close_answer() {
+    $(".shard.answer").hide();
+    $(".shard.next").hide();
+  };
+
   function next_content() {
+    close_answer();
+
     $.ajax({
       type: "GET",
-      url: "contents/list.js",
-      dataType: "json"
+      url: "https://nontak.github.io/tablet/contents/list.js",
+      dataType: "script"
     });
   };
 
 </script>
 
 <style>
+
+.wf-nicomoji {
+  font-family: "Nico Moji";
+  font-weight: bold;
+}
+
 :root {
   --px: 10px;
   --py: 10px;
+}
+
+.stripe {
+  --color_x: #f5eeed;
+  --color_y: #f4e2de;
+  background-image: linear-gradient(
+    -45deg,
+    var(--color_x) 25%,
+    var(--color_y) 25%,
+    var(--color_y) 50%,
+    var(--color_x) 50%,
+    var(--color_x) 75%,
+    var(--color_y) 75%,
+    var(--color_y)
+  );
+  background-size: 20px 20px;
+  background-attachment: fixed;
+}
+
+.stripe.stripe-a {
+  --color_x: #f5eeed;
+  --color_y: #f4e2de;
+}
+
+.stripe.stripe-b {
+  --color_x: #d4a44b;
+  --color_y: #e6c88f;
+}
+
+.shard.sweet-radius {
+  border-radius: 10px;
 }
 
 .background {
@@ -54,57 +109,69 @@
   flex: 0 1 auto;
   width:  100%;
   margin: auto;
-  padding-left: 10px;
+  padding: 0 10px 0 10px;
 }
 
-.page {
+.content.center {
+  text-align: center;
+}
+
+.shard.page {
   --w:  100px;
   --h:  50px;
   background-color: gray;
+  border-top-left-radius: calc(var(--h) / 2);
+  border-bottom-left-radius: calc(var(--h) / 2);
 }
 
-.question {
+.shard.question {
   --t:  calc(50px + var(--py));
   --h:  50px;
   background-color: silver;
 }
 
-.stage {
+.shard.stage {
   --t:  calc(100px + var(--py));
   --h:  150px;
   background-color: gray;
 }
 
-.response {
+.shard.response {
   --t:  calc(250px + var(--py));
   --h:  50px;
   background-color: silver;
 }
 
-.answer {
+.shard.set {
   --t:  calc(300px + var(--py));
   --h:  50px;
   background-color: gray;
 }
 
-.next {
+.shard.answer {
+  --t:  calc(350px + var(--py));
+  --h:  50px;
+  background-color: silver;
+}
+
+.shard.next {
   --h: 50px;
-  --w: 100px;
+  --w: 150px;
   background-color: silver;
   left:   calc(100% - var(--w) - var(--px));
   top:    calc(100% - var(--h) - var(--py));
 }
 </style>
 
-<body>
+<body class="wf-nicomoji">
   <div class="background">
     <div class="shard page">
       <div class="content">
-        <span>第１問</span>
+        <span style="color: white;">●</span><span>▶第1問</span>
       </div>
     </div>
 
-    <div class="shard question">
+    <div class="shard question stripe stripe-a sweet-radius">
       <div class="content">
         <span></span>
       </div>
@@ -115,23 +182,28 @@
       </div>
     </div>
 
-    <div class="shard response">
+    <div class="shard response stripe stripe-b sweet-radius">
       <div class="content">
-        <span>回答</span>
-        <input type="text"></input>
+        <span>回答：</span>
+        <input type="text" id="response_content" style="width: 60%"></input>
+      </div>
+    </div>
+
+    <div class="shard set">
+      <div class="content center">
+        <span style="display: block; border-bottom: double 6px orange;">▼ 答えを見る</span>
       </div>
     </div>
 
     <div class="shard answer">
-      <div class="content">
-        <span>答え</span>
-        <span></span>
+      <div class="content center">
+        <span style="display: block; border-bottom: double 6px blue;">これはただの例文です</span>
       </div>
     </div>
 
     <div class="shard next">
       <div class="content">
-        <span>次の問題へ</span>
+        <span>次の問題!▶</span>
       </div>
     </div>
   </div>
