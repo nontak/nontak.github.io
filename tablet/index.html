@@ -43,10 +43,18 @@
   --w:  calc(100% - var(--px) * 2);
   --h:  calc(100% - var(--py) * 2);
   position: absolute;
+  display:  flex;
   left:   var(--l);
   top:    var(--t);
   width:  var(--w);
   height: var(--h);
+}
+
+.content {
+  flex: 0 1 auto;
+  width:  100%;
+  margin: auto;
+  padding-left: 10px;
 }
 
 .page {
@@ -91,28 +99,40 @@
 <body>
   <div class="background">
     <div class="shard page">
-      <span>第１問</span>
+      <div class="content">
+        <span>第１問</span>
+      </div>
     </div>
 
     <div class="shard question">
-      <span></span>
+      <div class="content">
+        <span></span>
+      </div>
     </div>
 
     <div class="shard stage">
+      <div class="content">
+      </div>
     </div>
 
     <div class="shard response">
-      <span>回答</span>
-      <input type="text"></input>
+      <div class="content">
+        <span>回答</span>
+        <input type="text"></input>
+      </div>
     </div>
 
     <div class="shard answer">
-      <span>答え</span>
-      <span></span>
+      <div class="content">
+        <span>答え</span>
+        <span></span>
+      </div>
     </div>
 
     <div class="shard next">
-      <span>次の問題へ</span>
+      <div class="content">
+        <span>次の問題へ</span>
+      </div>
     </div>
   </div>
 </body>
