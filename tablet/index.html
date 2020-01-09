@@ -10,13 +10,110 @@
   $(function() {
     console.log("init");
 
+  });
+
+  function next_content() {
     $.ajax({
       type: "GET",
       url: "contents/list.js",
-      dataType: "script"
+      dataType: "json"
     });
-  });
+  };
+
 </script>
+
+<style>
+:root {
+  --px: 10px;
+  --py: 10px;
+}
+
+.background {
+  position: absolute;
+  background-color: pink;
+  left:   var(--px);
+  height: var(--py);
+  width:  calc(100% - var(--px) * 2);
+  height: calc(100% - var(--py) * 2);
+}
+
+.shard {
+  --l:  var(--px);
+  --t:  var(--py);
+  --w:  calc(100% - var(--px) * 2);
+  --h:  calc(100% - var(--py) * 2);
+  position: absolute;
+  left:   var(--l);
+  top:    var(--t);
+  width:  var(--w);
+  height: var(--h);
+}
+
+.page {
+  --w:  100px;
+  --h:  50px;
+  background-color: gray;
+}
+
+.question {
+  --t:  calc(50px + var(--py));
+  --h:  50px;
+  background-color: silver;
+}
+
+.stage {
+  --t:  calc(100px + var(--py));
+  --h:  150px;
+  background-color: gray;
+}
+
+.response {
+  --t:  calc(250px + var(--py));
+  --h:  50px;
+  background-color: silver;
+}
+
+.answer {
+  --t:  calc(300px + var(--py));
+  --h:  50px;
+  background-color: gray;
+}
+
+.next {
+  --h: 50px;
+  --w: 100px;
+  background-color: silver;
+  left:   calc(100% - var(--w) - var(--px));
+  top:    calc(100% - var(--h) - var(--py));
+}
+</style>
+
 <body>
+  <div class="background">
+    <div class="shard page">
+      <span>第１問</span>
+    </div>
+
+    <div class="shard question">
+      <span></span>
+    </div>
+
+    <div class="shard stage">
+    </div>
+
+    <div class="shard response">
+      <span>回答</span>
+      <input type="text"></input>
+    </div>
+
+    <div class="shard answer">
+      <span>答え</span>
+      <span></span>
+    </div>
+
+    <div class="shard next">
+      <span>次の問題へ</span>
+    </div>
+  </div>
 </body>
 
