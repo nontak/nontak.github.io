@@ -35,6 +35,7 @@
   };
 
   function next_content() {
+    $("#next_button").html("次の問題!▶");
     close_answer();
     $.ajax({
       url: "https://nontak.github.io/tablet/contents/list.json" + "?time=" + Date.now(),
@@ -252,13 +253,17 @@
   <div class="content center">
     <p>
       <p>
-        このサイトについて：
+        このサイトについて：<br>
+        単語帳のWeb版です。
       </p>
       <p>
-        元ネタを作ったお方：
+        つかいかた：<br>
+        問題がでます。<br>
+        回答を、入力フォームに打ち込んでください。<br>
+        終わったら「答えを見る」を押しましょう。答えがでます！<br>
       </p>
       <p>
-        お借りしたもの：
+        元ネタを作ったお方：<br>
       </p>
       <p>
         ひとこと：
@@ -272,7 +277,7 @@
   <div class="background">
     <div class="shard page">
       <div class="content">
-        <span class="white">●</span><span>▶</span><span id="p_text">はじまるよ！</span>
+        <span class="white">●</span><span>▶</span><span id="p_text">準備中…</span>
       </div>
     </div>
 
@@ -284,7 +289,7 @@
 
     <div class="shard question stripe stripe-a sweet-radius">
       <div class="content">
-        <span id="q_text"></span>
+        <span id="q_text">「Let's study!」</span>
       </div>
     </div>
 
@@ -312,13 +317,13 @@
 
     <div class="shard answer">
       <div class="content center">
-        <span id="a_text">これはただの例文です</span>
+        <span id="a_text">☆ここに答えがあるよ!</span>
       </div>
     </div>
 
     <div class="shard next">
       <div class="content">
-        <span>次の問題!▶</span>
+        <span id="next_button">Start!▶</span>
       </div>
     </div>
   </div>
