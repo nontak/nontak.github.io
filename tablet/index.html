@@ -9,6 +9,7 @@
 
 <script>
   $(function() {
+    g_number = 0;
     init();
     $(document).on("click", ".shard.set", open_answer);
     $(document).on("click", ".shard.next", next_content);
@@ -26,21 +27,29 @@
   function close_answer() {
     $(".shard.answer").hide();
     $(".shard.next").hide();
+    $("#response_content").val("");
   };
 
   function next_content() {
-console.log("A");
     close_answer();
-console.log("B");
     $.ajax({
       url: "https://nontak.github.io/tablet/contents/list.json",
       type: "GET",
-      dataType: "json",
-      success: function(json) { console.log(json) }
-    });
+      dataType: "json"
+    }).done(parse_json).fail(json_fail);
   };
 
-  function parse_json(data) {
+  function parse_json(json) {
+    $.each(json, function(i, data) {
+      g_number++;
+      $("#p_text").html(`第${g_number}問`);
+      $("#q_text").html(`「${data.q}」`);
+      $("#a_text").html("☆" + data.a);
+    })
+  };
+
+  function json_fail(e) {
+    console.log(e);
   };
 
 </script>
@@ -50,6 +59,7 @@ console.log("B");
 .wf-nicomoji {
   font-family: "Nico Moji";
   font-weight: bold;
+  color: saddlebrown;
 }
 
 :root {
@@ -70,18 +80,18 @@ console.log("B");
     var(--color_y) 75%,
     var(--color_y)
   );
-  background-size: 20px 20px;
+  background-size: 10px 10px;
   background-attachment: fixed;
 }
 
 .stripe.stripe-a {
-  --color_x: #f5eeed;
-  --color_y: #f4e2de;
+  --color_x: beige;
+  --color_y: peachpuff;
 }
 
 .stripe.stripe-b {
-  --color_x: #d4a44b;
-  --color_y: #e6c88f;
+  --color_x: pink;
+  --color_y: moccasin;
 }
 
 .shard.sweet-radius {
@@ -90,7 +100,6 @@ console.log("B");
 
 .background {
   position: absolute;
-  background-color: pink;
   left:   var(--px);
   height: var(--py);
   width:  calc(100% - var(--px) * 2);
@@ -122,87 +131,135 @@ console.log("B");
 }
 
 .shard.page {
-  --w:  100px;
   --h:  50px;
-  background-color: gray;
+  background-color: lightpink;
   border-top-left-radius: calc(var(--h) / 2);
   border-bottom-left-radius: calc(var(--h) / 2);
+  width: auto;
 }
 
 .shard.question {
   --t:  calc(50px + var(--py));
   --h:  50px;
+  --w:  calc(100% - var(--px) * 4);
+  --l:  calc(var(--px) * 2);
   background-color: silver;
 }
 
-.shard.stage {
+.down-triangle {
+  --color:  peachpuff;
   --t:  calc(100px + var(--py));
+  --h:  10px;
+  --l:  40px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 10px 0 10px;
+  border-color: var(--color) transparent transparent transparent;
+}
+
+.shard.stage {
+  --t:  calc(110px + var(--py));
   --h:  150px;
+  --w:  calc(100% - var(--px) * 4);
+  --l:  calc(var(--px) * 2);
   background-color: gray;
 }
 
+.up-triangle {
+  --color:  pink;
+  --t:  calc(260px + var(--py));
+  --h:  10px;
+  --l:  calc(100% - 100px);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent var(--color) transparent;
+}
+
 .shard.response {
-  --t:  calc(250px + var(--py));
+  --t:  calc(270px + var(--py));
   --h:  50px;
+  --w:  calc(100% - var(--px) * 4);
+  --l:  calc(var(--px) * 2);
   background-color: silver;
 }
 
 .shard.set {
-  --t:  calc(300px + var(--py));
+  --t:  calc(320px + var(--py));
   --h:  50px;
-  background-color: gray;
 }
 
 .shard.answer {
-  --t:  calc(350px + var(--py));
+  --t:  calc(370px + var(--py));
   --h:  50px;
-  background-color: silver;
 }
 
 .shard.next {
   --h: 50px;
   --w: 150px;
-  background-color: silver;
   left:   calc(100% - var(--w) - var(--px));
   top:    calc(100% - var(--h) - var(--py));
 }
+
+.white {
+  color: white;
+}
+
+#response_content {
+  width: calc(100% - 60px);
+}
+
+#show_answer {
+  display: block;
+  border-bottom: double 6px skyblue;
+}
+
+#a_text {
+  display: block;
+  border-bottom: double 6px orange;
+}
+
 </style>
 
 <body class="wf-nicomoji">
   <div class="background">
     <div class="shard page">
       <div class="content">
-        <span style="color: white;">●</span><span>▶第1問</span>
+        <span class="white">●</span><span>▶</span><span id="p_text">はじまるよ！</span>
       </div>
     </div>
 
     <div class="shard question stripe stripe-a sweet-radius">
       <div class="content">
-        <span></span>
+        <span id="q_text"></span>
       </div>
     </div>
+<div class="shard down-triangle"></div>
 
     <div class="shard stage">
       <div class="content">
       </div>
     </div>
 
+<div class="shard up-triangle"></div>
     <div class="shard response stripe stripe-b sweet-radius">
       <div class="content">
         <span>回答：</span>
-        <input type="text" id="response_content" style="width: 60%"></input>
+        <input type="text" id="response_content"></input>
       </div>
     </div>
 
     <div class="shard set">
       <div class="content center">
-        <span style="display: block; border-bottom: double 6px orange;">▼ 答えを見る</span>
+        <span id="show_answer">▼ 答えを見る</span>
       </div>
     </div>
 
     <div class="shard answer">
       <div class="content center">
-        <span style="display: block; border-bottom: double 6px blue;">これはただの例文です</span>
+        <span id="a_text">これはただの例文です</span>
       </div>
     </div>
 
