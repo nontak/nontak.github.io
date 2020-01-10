@@ -34,7 +34,7 @@
   function next_content() {
     close_answer();
     $.ajax({
-      url: "https://nontak.github.io/tablet/contents/list.json",
+      url: "https://nontak.github.io/tablet/contents/list.json" + "?time=" + Date.now(),
       type: "GET",
       dataType: "json"
     }).done(parse_json).fail(json_fail);
