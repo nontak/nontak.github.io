@@ -29,13 +29,18 @@
   };
 
   function next_content() {
+console.log("A");
     close_answer();
-
+console.log("B");
     $.ajax({
+      url: "https://nontak.github.io/tablet/contents/list.json",
       type: "GET",
-      url: "https://nontak.github.io/tablet/contents/list.js",
-      dataType: "script"
+      dataType: "json",
+      success: function(json) { console.log(json) }
     });
+  };
+
+  function parse_json(data) {
   };
 
 </script>
