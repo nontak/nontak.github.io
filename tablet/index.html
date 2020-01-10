@@ -11,6 +11,7 @@
 <script>
   $(function() {
     g_number = 0;
+    g_pairs = new Array();
     init();
     $(document).on("click", ".shard.set", open_answer);
     $(document).on("click", ".shard.next", next_content);
@@ -20,6 +21,7 @@
 
   function init() {
     $(".modal").hide();
+    remote_list();
   };
 
   function open_answer() {
@@ -34,8 +36,30 @@
   };
 
   function next_content() {
-    $("#next_button").html("次の問題!▶");
     close_answer();
+    g_number++;
+    $("#p_text").html(`第${g_number}問`);
+    $("#next_button").html("次の問題!▶");
+    let pair = next_pair();
+    if (pair == null) {
+      finish();
+      return;
+    };
+    $("#q_text").html(`「${pair.q}」`);
+    $("#a_text").html(`☆${pair.a}`);
+  };
+
+  function finish() {
+    $("#p_text").html("終了!");
+    $("#q_text").html("全部解けたかな？");
+    $(".set").hide();
+  }
+
+  function next_pair() {
+    return g_pairs.shift() || null;
+  }
+
+  function remote_list() {
     $.ajax({
       url: "https://nontak.github.io/tablet/contents/list.json" + "?time=" + Date.now(),
       type: "GET",
@@ -45,10 +69,7 @@
 
   function parse_json(json) {
     $.each(json, function(i, data) {
-      g_number++;
-      $("#p_text").html(`第${g_number}問`);
-      $("#q_text").html(`「${data.q}」`);
-      $("#a_text").html("☆" + data.a);
+      g_pairs.push(data);
     })
   };
 
@@ -256,22 +277,32 @@
       </p>
       <p>
         このサイトは？：<br>
-        簡易式の学習帳です。今回は英文訳版です。
+        <a href="https://www.youtube.com/channel/UCz6Gi81kE6p5cdW1rT0ixqw">とってもかしこいバーチャルYouTuber</a>さんが<br>
+        自作されていた英語学習ツールの、レプリカです。<br>
+        （リスペクト！）<br>
+        キミもめめめちゃんと英語をお勉強してかしこくなろう！
       </p>
       <p>
         つかいかた：<br>
-        問題がでます。<br>
-        回答を、入力フォームに打ち込んでください。<br>
-        終わったら「答えを見る」を押して答え合わせ！<br>
+        問題として、英文がでます。<br>
+        和訳解答を、入力フォームに打ち込んでください。<br>
+        終わったら「答えを見る」を押して答え合わせ！
       </p>
       <p>
         元ネタを作ったお方：<br>
+        もこ田めめめ (<a href="https://vrlive.party/member/">アップランド公式サイト</a>)<br>
+        参考動画(Youtube) <a href="https://www.youtube.com/watch?v=SU8ZenuzRx0">【勉強】冬休みは終わった。朝勉して勘を取り戻せ。</a>
       </p>
       <p>
-        ひとこと：
+        ひとこと：<br>
+        もこ田さん、いつも応援してます！<br>
+        動画を拝見し、ピーンときたので勢いで作ってみました。<br>
+        トレースしてみてわかったのですが、画面デザインのセンスがとても良い。<br>
+        ホントに勉強になりました！
       </p>
       <p>
-        コピーライト：
+        作ったヒト：<br>
+        おちゃづけ (<a href="https://twitter.com/OchazukeM">Twitter @OchazukeM</a>)
       </p>
     </p>
   </div>
