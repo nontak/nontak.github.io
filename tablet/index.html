@@ -14,10 +14,13 @@
     init();
     $(document).on("click", ".shard.set", open_answer);
     $(document).on("click", ".shard.next", next_content);
+    $(document).on("click", ".modal", function() { $(".modal").hide(); });
+    $(document).on("click", ".help", function() { $(".modal").show(); });
   });
 
   function init() {
     close_answer();
+    $(".modal").hide();
   };
 
   function open_answer() {
@@ -225,13 +228,57 @@
   border-bottom: double 6px orange;
 }
 
+.shard.modal {
+  z-index: 10;
+  background-color: white;
+  width:  100%;
+  height: 100%;
+  opacity: 80%;
+}
+
+.shard.help {
+  --l:  calc(100% - var(--px) - 50px);
+  --t:  var(--py);
+  width:  40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: pink;
+}
+
 </style>
 
 <body class="wf-nicomoji">
+<div  class="shard modal">
+  <div class="content center">
+    <p>
+      <p>
+        このサイトについて：
+      </p>
+      <p>
+        元ネタを作ったお方：
+      </p>
+      <p>
+        お借りしたもの：
+      </p>
+      <p>
+        ひとこと：
+      </p>
+      <p>
+        コピーライト：
+      </p>
+    </p>
+  </div>
+</div>
   <div class="background">
     <div class="shard page">
       <div class="content">
         <span class="white">●</span><span>▶</span><span id="p_text">はじまるよ！</span>
+      </div>
+    </div>
+
+    <div class="shard help">
+      <div class="content center">
+        ?
       </div>
     </div>
 
@@ -240,14 +287,16 @@
         <span id="q_text"></span>
       </div>
     </div>
-<div class="shard down-triangle"></div>
+
+    <div class="shard down-triangle"></div>
 
     <div class="shard stage">
       <div class="content">
       </div>
     </div>
 
-<div class="shard up-triangle"></div>
+    <div class="shard up-triangle"></div>
+
     <div class="shard response stripe stripe-b sweet-radius">
       <div class="content">
         <span>回答：</span>
