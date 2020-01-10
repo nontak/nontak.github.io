@@ -1,2 +1,4 @@
-alert("Hello");
+{
+  "item": { "q": "Hello", "a": "こんにちは"},
+}
 
