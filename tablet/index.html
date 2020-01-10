@@ -92,6 +92,8 @@
 :root {
   --px: 10px;
   --py: 10px;
+  --icon-w: 150px;
+  --icon-h: 150px;
 }
 
 .stripe {
@@ -177,7 +179,7 @@
   --color:  peachpuff;
   --t:  calc(100px + var(--py));
   --h:  10px;
-  --l:  40px;
+  --l:  60px;
   width: 0;
   height: 0;
   border-style: solid;
@@ -262,10 +264,37 @@
   --t:  var(--py);
   width:  40px;
   height: 40px;
-  border-radius: 20px;
+  border-radius: 50%;
   background-color: pink;
+  border: 1px solid brown;
 }
 
+
+.shard.left-icon {
+  --l:  calc(var(--px) * 3);
+  --t:  120px;
+}
+
+.shard.right-icon {
+  --l:  calc(100% - var(--icon-w) - var(--px) * 3);
+  --t:  120px;
+}
+
+#right-icon {
+  width:  var(--icon-w);
+  height: var(--icon-h);
+  border-radius: 20%;
+  border: 1px solid black;
+}
+
+#left-icon {
+  width:  var(--icon-w);
+  height: var(--icon-h);
+  border-radius: 20%;
+  object-fit: cover;
+  object-position: 85% 100%;
+  border: 1px solid black;
+}
 </style>
 
 <body class="wf-nicomoji">
@@ -277,7 +306,7 @@
       </p>
       <p>
         このサイトは？：<br>
-        <a href="https://www.youtube.com/channel/UCz6Gi81kE6p5cdW1rT0ixqw">とってもかしこいバーチャルYouTuber</a>さんが<br>
+        <a href="https://twitter.com/mokomeme_ch">とってもかしこいバーチャルYouTuber</a>さんが<br>
         自作されていた英語学習ツールの、レプリカです。<br>
         （リスペクト！）<br>
         キミもめめめちゃんと英語をお勉強してかしこくなろう！
@@ -291,7 +320,8 @@
       <p>
         元ネタを作ったお方：<br>
         もこ田めめめ (<a href="https://vrlive.party/member/">アップランド公式サイト</a>)<br>
-        参考動画(Youtube) <a href="https://www.youtube.com/watch?v=SU8ZenuzRx0">【勉強】冬休みは終わった。朝勉して勘を取り戻せ。</a>
+        参考動画(Youtube) <a href="https://www.youtube.com/watch?v=SU8ZenuzRx0">【勉強】冬休みは終わった。朝勉して勘を取り戻せ。</a><br>
+        ※画像は、<a href="https://twitter.com/mokomeme_ch">もこ田めめめさん 公式Twitter</a>のアイコン、ヘッダーを参照しています。
       </p>
       <p>
         ひとこと：<br>
@@ -328,9 +358,12 @@
 
     <div class="shard down-triangle"></div>
 
-    <div class="shard stage">
-      <div class="content">
-      </div>
+
+    <div class="shard left-icon">
+      <img id="left-icon" src="https://pbs.twimg.com/profile_banners/971926028842033152/1526741214/1080x360">
+    </div>
+    <div class="shard right-icon">
+      <img id="right-icon" src="https://pbs.twimg.com/profile_images/1059389222572814337/6m3OcbSu_400x400.jpg">
     </div>
 
     <div class="shard up-triangle"></div>
